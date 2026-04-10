@@ -78,7 +78,7 @@ public class PagingVisualizer extends JFrame {
         executeButton.setToolTipText("Execute the selected paging algorithm");
         executeButton.setFont(new Font("Arial", Font.BOLD, 14));
         executeButton.setBackground(new Color(100, 150, 255));
-        executeButton.setForeground(Color.WHITE);
+        executeButton.setForeground(Color.BLACK);
         executeButton.setFocusPainted(false);
         executeButton.setCursor(new Cursor(Cursor.HAND_CURSOR));
         executeButton.addActionListener(e -> executeAlgorithm());
