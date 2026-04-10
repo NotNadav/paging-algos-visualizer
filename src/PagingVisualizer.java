@@ -37,36 +37,42 @@ public class PagingVisualizer extends JFrame {
     }
 
     private JPanel createInputPanel() {
-        JPanel panel = new JPanel();
-        panel.setLayout(new FlowLayout(FlowLayout.LEFT, 10, 10));
-        panel.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
+        JPanel mainPanel = new JPanel();
+        mainPanel.setLayout(new BoxLayout(mainPanel, BoxLayout.Y_AXIS));
+        mainPanel.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
 
+        // Row 1: Inputs
+        JPanel row1 = new JPanel(new FlowLayout(FlowLayout.LEFT, 10, 5));
+        
         JLabel refLabel = new JLabel("Reference String:");
         refLabel.setFont(new Font("Arial", Font.BOLD, 14));
-        panel.add(refLabel);
+        row1.add(refLabel);
 
         referenceStringField = new JTextField(30);
         referenceStringField.setFont(new Font("Arial", Font.PLAIN, 14));
         referenceStringField.setText("7 0 1 2 0 3 0 4 2 3 0 3 2");
-        panel.add(referenceStringField);
+        row1.add(referenceStringField);
 
         JLabel wsLabel = new JLabel("Working Set:");
         wsLabel.setFont(new Font("Arial", Font.BOLD, 14));
-        panel.add(wsLabel);
+        row1.add(wsLabel);
 
         workingSetField = new JTextField(3);
         workingSetField.setFont(new Font("Arial", Font.PLAIN, 14));
         workingSetField.setText("3");
-        panel.add(workingSetField);
+        row1.add(workingSetField);
 
         JLabel algoLabel = new JLabel("Algorithm:");
         algoLabel.setFont(new Font("Arial", Font.BOLD, 14));
-        panel.add(algoLabel);
+        row1.add(algoLabel);
 
         String[] algorithms = { "FIFO", "LRU", "Second Chance", "Optimal (OPT)" };
         algorithmComboBox = new JComboBox<>(algorithms);
         algorithmComboBox.setFont(new Font("Arial", Font.PLAIN, 14));
-        panel.add(algorithmComboBox);
+        row1.add(algorithmComboBox);
+
+        // Row 2: Actions
+        JPanel row2 = new JPanel(new FlowLayout(FlowLayout.LEFT, 10, 5));
 
         executeButton = new JButton("Run Simulation");
         executeButton.setToolTipText("Execute the selected paging algorithm");
@@ -76,7 +82,7 @@ public class PagingVisualizer extends JFrame {
         executeButton.setFocusPainted(false);
         executeButton.setCursor(new Cursor(Cursor.HAND_CURSOR));
         executeButton.addActionListener(e -> executeAlgorithm());
-        panel.add(executeButton);
+        row2.add(executeButton);
 
         stepModeCheckBox = new JCheckBox("Step Mode");
         stepModeCheckBox.setFont(new Font("Arial", Font.PLAIN, 14));
@@ -84,15 +90,18 @@ public class PagingVisualizer extends JFrame {
             nextStepButton.setEnabled(false);
             currentStep = -1;
         });
-        panel.add(stepModeCheckBox);
+        row2.add(stepModeCheckBox);
 
         nextStepButton = new JButton("Next Step");
         nextStepButton.setFont(new Font("Arial", Font.BOLD, 14));
         nextStepButton.setEnabled(false);
         nextStepButton.addActionListener(e -> showNextStep());
-        panel.add(nextStepButton);
+        row2.add(nextStepButton);
 
-        return panel;
+        mainPanel.add(row1);
+        mainPanel.add(row2);
+
+        return mainPanel;
     }
 
     private JPanel createResultPanel() {
