@@ -16,7 +16,7 @@ public class PagingVisualizer extends JFrame {
     private int totalSteps = 0;
 
     public PagingVisualizer() {
-        setTitle("Paging Replacement Algorithm Visualizer");
+        setTitle("paging replacement algorithm visualizer");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLayout(new BorderLayout(10, 10));
 
@@ -44,7 +44,7 @@ public class PagingVisualizer extends JFrame {
         // Row 1: Inputs
         JPanel row1 = new JPanel(new FlowLayout(FlowLayout.LEFT, 10, 5));
         
-        JLabel refLabel = new JLabel("Reference String:");
+        JLabel refLabel = new JLabel("reference string:");
         refLabel.setFont(new Font("Arial", Font.BOLD, 14));
         row1.add(refLabel);
 
@@ -53,7 +53,7 @@ public class PagingVisualizer extends JFrame {
         referenceStringField.setText("7 0 1 2 0 3 0 4 2 3 0 3 2");
         row1.add(referenceStringField);
 
-        JLabel wsLabel = new JLabel("Working Set:");
+        JLabel wsLabel = new JLabel("working set:");
         wsLabel.setFont(new Font("Arial", Font.BOLD, 14));
         row1.add(wsLabel);
 
@@ -62,11 +62,11 @@ public class PagingVisualizer extends JFrame {
         workingSetField.setText("3");
         row1.add(workingSetField);
 
-        JLabel algoLabel = new JLabel("Algorithm:");
+        JLabel algoLabel = new JLabel("algorithm:");
         algoLabel.setFont(new Font("Arial", Font.BOLD, 14));
         row1.add(algoLabel);
 
-        String[] algorithms = { "FIFO", "LRU", "Second Chance", "Optimal (OPT)" };
+        String[] algorithms = { "fifo", "lru", "second chance", "optimal (opt)" };
         algorithmComboBox = new JComboBox<>(algorithms);
         algorithmComboBox.setFont(new Font("Arial", Font.PLAIN, 14));
         row1.add(algorithmComboBox);
@@ -74,7 +74,7 @@ public class PagingVisualizer extends JFrame {
         // Row 2: Actions
         JPanel row2 = new JPanel(new FlowLayout(FlowLayout.LEFT, 10, 5));
 
-        executeButton = new JButton("Run Simulation");
+        executeButton = new JButton("run simulation");
         executeButton.setToolTipText("Execute the selected paging algorithm");
         executeButton.setFont(new Font("Arial", Font.BOLD, 14));
         executeButton.setBackground(new Color(100, 150, 255));
@@ -84,7 +84,7 @@ public class PagingVisualizer extends JFrame {
         executeButton.addActionListener(e -> executeAlgorithm());
         row2.add(executeButton);
 
-        stepModeCheckBox = new JCheckBox("Step Mode");
+        stepModeCheckBox = new JCheckBox("step mode");
         stepModeCheckBox.setFont(new Font("Arial", Font.PLAIN, 14));
         stepModeCheckBox.addActionListener(e -> {
             nextStepButton.setEnabled(false);
@@ -92,7 +92,7 @@ public class PagingVisualizer extends JFrame {
         });
         row2.add(stepModeCheckBox);
 
-        nextStepButton = new JButton("Next Step");
+        nextStepButton = new JButton("next step");
         nextStepButton.setFont(new Font("Arial", Font.BOLD, 14));
         nextStepButton.setEnabled(false);
         nextStepButton.addActionListener(e -> showNextStep());
@@ -109,7 +109,7 @@ public class PagingVisualizer extends JFrame {
         panel.setLayout(new FlowLayout(FlowLayout.CENTER, 10, 10));
         panel.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
 
-        pageFaultLabel = new JLabel("Total Page Faults: -");
+        pageFaultLabel = new JLabel("total page faults: -");
         pageFaultLabel.setFont(new Font("Arial", Font.BOLD, 16));
         pageFaultLabel.setForeground(new Color(200, 0, 0));
         panel.add(pageFaultLabel);
@@ -160,19 +160,19 @@ public class PagingVisualizer extends JFrame {
 
             AlgorithmResult result = null;
             switch (algorithm) {
-                case "FIFO":
+                case "fifo":
                     FIFOAlgorithm fifo = new FIFOAlgorithm(frameCount);
                     result = fifo.execute(referenceString);
                     break;
-                case "LRU":
+                case "lru":
                     LRUAlgorithm lru = new LRUAlgorithm(frameCount);
                     result = lru.execute(referenceString);
                     break;
-                case "Second Chance":
+                case "second chance":
                     SecondChanceAlgorithm secondChance = new SecondChanceAlgorithm(frameCount);
                     result = secondChance.execute(referenceString);
                     break;
-                case "Optimal (OPT)":
+                case "optimal (opt)":
                     OPTAlgorithm opt = new OPTAlgorithm(frameCount);
                     result = opt.execute(referenceString);
                     break;
@@ -186,10 +186,10 @@ public class PagingVisualizer extends JFrame {
                     totalSteps = referenceString.length;
                     visualizationPanel.setMaxDisplayedStep(currentStep);
                     nextStepButton.setEnabled(totalSteps > 1);
-                    pageFaultLabel.setText("Step Mode Active: Step 1 of " + totalSteps);
+                    pageFaultLabel.setText("step mode active: step 1 of " + totalSteps);
                 } else {
                     nextStepButton.setEnabled(false);
-                    pageFaultLabel.setText("Total Page Faults: " + result.getTotalPageFaults());
+                    pageFaultLabel.setText("total page faults: " + result.getTotalPageFaults());
                 }
             }
 

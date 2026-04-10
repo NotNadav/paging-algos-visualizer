@@ -119,10 +119,10 @@ public class VisualizationPanel extends JPanel {
                 }
             }
 
-            // Miss/Hit Indicator
+            // miss/hit indicator
             int indicatorY = startY + 20 + frameCount * CELL_HEIGHT + 25;
             g2d.setFont(new Font("Segoe UI", Font.BOLD, 12));
-            String indicator = isMiss ? "MISS" : "HIT";
+            String indicator = isMiss ? "miss" : "hit";
             g2d.setColor(isMiss ? new Color(192, 57, 43) : new Color(39, 174, 96));
             fm = g2d.getFontMetrics();
             int indicatorX = columnX + (CELL_WIDTH - fm.stringWidth(indicator)) / 2;
@@ -134,7 +134,7 @@ public class VisualizationPanel extends JPanel {
             int totalY = startY + 20 + frameCount * CELL_HEIGHT + 60;
             g2d.setFont(new Font("Segoe UI", Font.BOLD, 18));
             g2d.setColor(new Color(44, 62, 80));
-            String totalText = "Final Result: " + result.getTotalPageFaults() + " Page Faults";
+            String totalText = "final result: " + result.getTotalPageFaults() + " page faults";
             g2d.drawString(totalText, startX, totalY);
         }
     }
