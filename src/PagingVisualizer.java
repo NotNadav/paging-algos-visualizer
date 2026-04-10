@@ -7,9 +7,13 @@ public class PagingVisualizer extends JFrame {
     private JTextField workingSetField;
     private JComboBox<String> algorithmComboBox;
     private JButton executeButton;
+    private JCheckBox stepModeCheckBox;
+    private JButton nextStepButton;
     private JLabel pageFaultLabel;
     private VisualizationPanel visualizationPanel;
     private JScrollPane scrollPane;
+    private int currentStep = -1;
+    private int totalSteps = 0;
 
     public PagingVisualizer() {
         setTitle("Paging Replacement Algorithm Visualizer");
@@ -73,6 +77,20 @@ public class PagingVisualizer extends JFrame {
         executeButton.setCursor(new Cursor(Cursor.HAND_CURSOR));
         executeButton.addActionListener(e -> executeAlgorithm());
         panel.add(executeButton);
+
+        stepModeCheckBox = new JCheckBox("Step Mode");
+        stepModeCheckBox.setFont(new Font("Arial", Font.PLAIN, 14));
+        stepModeCheckBox.addActionListener(e -> {
+            nextStepButton.setEnabled(false);
+            currentStep = -1;
+        });
+        panel.add(stepModeCheckBox);
+
+        nextStepButton = new JButton("Next Step");
+        nextStepButton.setFont(new Font("Arial", Font.BOLD, 14));
+        nextStepButton.setEnabled(false);
+        nextStepButton.addActionListener(e -> showNextStep());
+        panel.add(nextStepButton);
 
         return panel;
     }
@@ -153,11 +171,32 @@ public class PagingVisualizer extends JFrame {
 
             if (result != null) {
                 visualizationPanel.setVisualizationData(result, referenceString, algorithm);
-                pageFaultLabel.setText("Total Page Faults: " + result.getTotalPageFaults());
+                
+                if (stepModeCheckBox.isSelected()) {
+                    currentStep = 0;
+                    totalSteps = referenceString.length;
+                    visualizationPanel.setMaxDisplayedStep(currentStep);
+                    nextStepButton.setEnabled(totalSteps > 1);
+                    pageFaultLabel.setText("Step Mode Active: Step 1 of " + totalSteps);
+                } else {
+                    nextStepButton.setEnabled(false);
+                    pageFaultLabel.setText("Total Page Faults: " + result.getTotalPageFaults());
+                }
             }
 
         } catch (Exception ex) {
             showError("An unexpected error occurred: " + ex.getMessage());
+        }
+    }
+
+    private void showNextStep() {
+        if (currentStep < totalSteps - 1) {
+            currentStep++;
+            visualizationPanel.setMaxDisplayedStep(currentStep);
+            
+            if (currentStep == totalSteps - 1) {
+                nextStepButton.setEnabled(false);
+            }
         }
     }
 
