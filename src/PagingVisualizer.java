@@ -59,7 +59,7 @@ public class PagingVisualizer extends JFrame {
         algoLabel.setFont(new Font("Arial", Font.BOLD, 14));
         panel.add(algoLabel);
 
-        String[] algorithms = { "FIFO", "LRU", "Second Chance" };
+        String[] algorithms = { "FIFO", "LRU", "Second Chance", "Optimal (OPT)" };
         algorithmComboBox = new JComboBox<>(algorithms);
         algorithmComboBox.setFont(new Font("Arial", Font.PLAIN, 14));
         panel.add(algorithmComboBox);
@@ -144,6 +144,10 @@ public class PagingVisualizer extends JFrame {
                 case "Second Chance":
                     SecondChanceAlgorithm secondChance = new SecondChanceAlgorithm(frameCount);
                     result = secondChance.execute(referenceString);
+                    break;
+                case "Optimal (OPT)":
+                    OPTAlgorithm opt = new OPTAlgorithm(frameCount);
+                    result = opt.execute(referenceString);
                     break;
             }
 
