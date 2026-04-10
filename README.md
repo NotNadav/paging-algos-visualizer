@@ -6,12 +6,12 @@ just a small side project to visualize how memory paging works (FIFO, LRU, etc).
 
 1. **compile everything:**
    ```bash
-   javac *.java
+   javac src/*.java
    ```
 
 2. **run the app:**
    ```bash
-   java PagingVisualizer
+   java -cp src PagingVisualizer
    ```
 
 ## how to use
