@@ -94,11 +94,24 @@ public class PagingVisualizer extends JFrame {
         try {
             String input = referenceStringField.getText().trim();
             if (input.isEmpty()) {
-                showError("Please enter a reference string!");
+                showError("Please enter a reference string! (e.g. 7, 0, 1)");
                 return;
             }
 
-            int frameCount = Integer.parseInt(workingSetField.getText().trim());
+            String frameInput = workingSetField.getText().trim();
+            if (frameInput.isEmpty()) {
+                showError("Please enter a working set size (1-10)!");
+                return;
+            }
+
+            int frameCount;
+            try {
+                frameCount = Integer.parseInt(frameInput);
+            } catch (NumberFormatException e) {
+                showError("Working set must be a number!");
+                return;
+            }
+
             if (frameCount < 1 || frameCount > 10) {
                 showError("Working set must be between 1 and 10!");
                 return;
@@ -108,7 +121,12 @@ public class PagingVisualizer extends JFrame {
             int[] referenceString = new int[tokens.length];
 
             for (int i = 0; i < tokens.length; i++) {
-                referenceString[i] = Integer.parseInt(tokens[i].trim());
+                try {
+                    referenceString[i] = Integer.parseInt(tokens[i].trim());
+                } catch (NumberFormatException e) {
+                    showError("Invalid page number: '" + tokens[i] + "'. Please use numbers only.");
+                    return;
+                }
             }
 
             String algorithm = (String) algorithmComboBox.getSelectedItem();
@@ -134,10 +152,8 @@ public class PagingVisualizer extends JFrame {
                 pageFaultLabel.setText("Total Page Faults: " + result.getTotalPageFaults());
             }
 
-        } catch (NumberFormatException ex) {
-            showError("Invalid reference string! Please enter numbers separated by spaces or commas.");
         } catch (Exception ex) {
-            showError("Error: " + ex.getMessage());
+            showError("An unexpected error occurred: " + ex.getMessage());
         }
     }
 
