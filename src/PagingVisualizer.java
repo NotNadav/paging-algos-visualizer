@@ -64,7 +64,8 @@ public class PagingVisualizer extends JFrame {
         algorithmComboBox.setFont(new Font("Arial", Font.PLAIN, 14));
         panel.add(algorithmComboBox);
 
-        executeButton = new JButton("asado");
+        executeButton = new JButton("Run Simulation");
+        executeButton.setToolTipText("Execute the selected paging algorithm");
         executeButton.setFont(new Font("Arial", Font.BOLD, 14));
         executeButton.setBackground(new Color(100, 150, 255));
         executeButton.setForeground(Color.WHITE);
