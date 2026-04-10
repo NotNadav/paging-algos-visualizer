@@ -17,7 +17,6 @@ public class OPTAlgorithm {
             int page = referenceString[i];
             boolean pageFault = true;
 
-            // Check if page is already in a frame
             for (int j = 0; j < frameCount; j++) {
                 if (frames[j] != null && frames[j].getPageNumber() == page) {
                     pageFault = false;
@@ -28,7 +27,6 @@ public class OPTAlgorithm {
             if (pageFault) {
                 pageFaultCount++;
 
-                // Try to find an empty slot
                 boolean placed = false;
                 for (int j = 0; j < frameCount; j++) {
                     if (frames[j] == null) {
@@ -38,14 +36,13 @@ public class OPTAlgorithm {
                     }
                 }
 
-                // If no empty slots, use the Optimal algorithm to replace
+                // replace page using opt logic
                 if (!placed) {
                     int replaceIndex = findOptimalReplacement(frames, referenceString, i + 1);
                     frames[replaceIndex] = new PageFrame(page);
                 }
             }
 
-            // Save state for visualization
             PageFrame[] currentState = new PageFrame[frameCount];
             for (int j = 0; j < frameCount; j++) {
                 currentState[j] = frames[j] != null ? frames[j].copy() : null;
@@ -64,7 +61,7 @@ public class OPTAlgorithm {
         for (int i = 0; i < frames.length; i++) {
             int nextUse = Integer.MAX_VALUE;
             
-            // Look ahead in the reference string
+            // look ahead in the string
             for (int k = startIndex; k < referenceString.length; k++) {
                 if (frames[i].getPageNumber() == referenceString[k]) {
                     nextUse = k;
@@ -72,12 +69,12 @@ public class OPTAlgorithm {
                 }
             }
 
-            // If a page is never used again, replace it immediately
+            // if never used again, replace now
             if (nextUse == Integer.MAX_VALUE) {
                 return i;
             }
 
-            // Otherwise, replace the one used furthest in the future
+            // replace the one used furthest in future
             if (nextUse > furthestIndex) {
                 furthestIndex = nextUse;
                 replaceIndex = i;

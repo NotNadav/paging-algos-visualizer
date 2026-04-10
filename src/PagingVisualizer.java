@@ -41,7 +41,7 @@ public class PagingVisualizer extends JFrame {
         mainPanel.setLayout(new BoxLayout(mainPanel, BoxLayout.Y_AXIS));
         mainPanel.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
 
-        // Row 1: Inputs
+        // row 1: inputs
         JPanel row1 = new JPanel(new FlowLayout(FlowLayout.LEFT, 10, 5));
         
         JLabel refLabel = new JLabel("reference string:");
@@ -71,7 +71,7 @@ public class PagingVisualizer extends JFrame {
         algorithmComboBox.setFont(new Font("Arial", Font.PLAIN, 14));
         row1.add(algorithmComboBox);
 
-        // Row 2: Actions
+        // row 2: actions
         JPanel row2 = new JPanel(new FlowLayout(FlowLayout.LEFT, 10, 5));
 
         executeButton = new JButton("run simulation");

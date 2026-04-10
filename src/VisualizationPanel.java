@@ -21,7 +21,7 @@ public class VisualizationPanel extends JPanel {
         this.result = result;
         this.referenceString = referenceString;
         this.algorithmName = algorithmName;
-        this.maxDisplayedStep = -1; // -1 means show all
+        this.maxDisplayedStep = -1; // show everything
 
         int width = PADDING * 2 + referenceString.length * (CELL_WIDTH + COLUMN_SPACING);
         int height = 500;
@@ -76,9 +76,9 @@ public class VisualizationPanel extends JPanel {
             boolean isMiss = pageFaults.get(i);
             boolean isActive = (i == maxDisplayedStep);
 
-            // Draw current reference page number
+            // draw current reference page number
             g2d.setFont(new Font("Segoe UI", Font.BOLD, 18));
-            g2d.setColor(isActive ? new Color(243, 156, 18) : new Color(41, 128, 185)); // Orange if active, blue otherwise
+            g2d.setColor(isActive ? new Color(243, 156, 18) : new Color(41, 128, 185)); // orange if active
             String pageNum = String.valueOf(referenceString[i]);
             FontMetrics fm = g2d.getFontMetrics();
             int pageNumX = columnX + (CELL_WIDTH - fm.stringWidth(pageNum)) / 2;
@@ -89,18 +89,17 @@ public class VisualizationPanel extends JPanel {
                 int frameY = startY + 20 + frameIdx * CELL_HEIGHT;
                 PageFrame frame = steps.get(i)[frameIdx];
 
-                // Background for the cell
+                // cell background
                 if (isMiss) {
-                    g2d.setColor(new Color(255, 235, 238)); // Very light red
+                    g2d.setColor(new Color(255, 235, 238));
                 } else {
-                    g2d.setColor(new Color(232, 245, 233)); // Very light green
+                    g2d.setColor(new Color(232, 245, 233));
                 }
                 g2d.fillRoundRect(columnX, frameY, CELL_WIDTH - 2, CELL_HEIGHT - 2, 8, 8);
 
-                // Border
-                g2d.setStroke(new BasicStroke(isActive ? 3.0f : 1.5f)); // Thicker border for active step
+                g2d.setStroke(new BasicStroke(isActive ? 3.0f : 1.5f)); // thicker border if active
                 if (isActive) {
-                    g2d.setColor(new Color(243, 156, 18)); // Sun Flower Orange
+                    g2d.setColor(new Color(243, 156, 18));
                 } else if (isMiss) {
                     g2d.setColor(new Color(231, 76, 60)); // Alizarin red
                 } else {
@@ -129,7 +128,7 @@ public class VisualizationPanel extends JPanel {
             g2d.drawString(indicator, indicatorX, indicatorY);
         }
 
-        // Summary Line (only show if finished)
+        // summary (only show when done)
         if (maxDisplayedStep == -1 || maxDisplayedStep == referenceString.length - 1) {
             int totalY = startY + 20 + frameCount * CELL_HEIGHT + 60;
             g2d.setFont(new Font("Segoe UI", Font.BOLD, 18));
